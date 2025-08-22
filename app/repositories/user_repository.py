@@ -15,10 +15,11 @@ class UserRepository(BaseRepository[User]):
         super().__init__(User,db)
         self.base_service=BaseService(self)
 
-    def create(self,create_user:UserCreateRequest):
+    def create_user(self,create_user:UserCreateRequest,keycloak_id:str):
         new_user=User(email=create_user.email,
                       first_name=create_user.first_name,
-                      last_name=create_user.last_name)
+                      last_name=create_user.last_name,
+                      keycloak_id=keycloak_id)
 
         self.db.add(new_user)
         self.db.commit()

@@ -19,6 +19,7 @@ class UserCreateRequest(BaseModel):
     email:str
     first_name:str
     last_name:str
+    keycloak_id:Optional[str]=None
 
 
 class UserUpdateRequest(BaseModel):

@@ -18,6 +18,9 @@ class BaseRepository(Generic[T]):
     def get_by_id(self, item_id: int | uuid.UUID) -> T | None:
         return self.db.query(self.model).filter_by(id=item_id).first()
 
+    def get_by_email(self, user_email: str) -> T | None:
+        return self.db.query(self.model).filter(self.model.email == user_email).first()
+
 
     # ---- Paginated ----
     def get_all_paginated(self, skip: int = 0, limit: int = 10) -> list[T]:

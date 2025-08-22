@@ -39,5 +39,14 @@ class BaseService(Generic[T]):
             )
         return obj
 
+    def get_by_email(self, email: str) -> T:  # T is the model type
+        obj: T = self.repository.get_by_email(email)  # explicitly type obj
+        if not obj:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Object with email {email} not found"
+            )
+        return obj
+
     def delete(self, id: int) -> bool:
         return self.repository.delete(id)

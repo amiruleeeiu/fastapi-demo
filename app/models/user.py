@@ -10,3 +10,4 @@ class User(BaseEntity):
     email: Mapped[str] = mapped_column(String, index=True, nullable=False)
     first_name: Mapped[str | None] = mapped_column(String, nullable=True)
     last_name: Mapped[str | None] = mapped_column(String, nullable=True)
+    keycloak_id: Mapped[str | None] = mapped_column(String, nullable=False)
