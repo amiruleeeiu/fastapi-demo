@@ -45,7 +45,7 @@ def create_user(user: UserCreateRequest, db: Session = Depends(get_db)):
 @router.put("/{user_id}", response_model=UserResponse)
 def update_user(user_id: uuid.UUID, user: UserCreateRequest, db: Session = Depends(get_db)):
 
-    updated_user = UserService(db).update_user(user, user_id)
+    updated_user = UserService(db).update_user(user_id, user)
     if not updated_user:
         raise HTTPException(status_code=404, detail="User not found")
     return updated_user

@@ -1,4 +1,6 @@
 # repositories/base_repository.py
+import uuid
+
 from sqlalchemy.orm import Session
 from typing import Generic, Type, TypeVar
 
@@ -13,8 +15,8 @@ class BaseRepository(Generic[T]):
     def get_all(self) -> list[T]:
         return self.db.query(self.model).filter(self.model.is_active.is_(True)).all()
 
-    def get_by_id(self, item_id: int) -> T | None:
-        return self.db.query(self.model).filter(self.model.id == item_id).first()
+    def get_by_id(self, item_id: int | uuid.UUID) -> T | None:
+        return self.db.query(self.model).filter_by(id=item_id).first()
 
 
     # ---- Paginated ----
@@ -24,8 +26,8 @@ class BaseRepository(Generic[T]):
     def count(self) -> int:
         return self.db.query(self.model).count()
 
-    def get(self, item_id: int) -> T | None:
-        return self.db.query(self.model).filter(self.model.id == item_id).first()
+    def get(self, item_id: int|uuid.UUID) -> T | None:
+        return self.db.query(self.model).filter_by(id=item_id, is_active=True).first()
 
     def create(self, obj: T) -> T:
         self.db.add(obj)

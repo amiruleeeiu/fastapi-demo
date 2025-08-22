@@ -1,3 +1,4 @@
+import uuid
 from calendar import error
 
 from fastapi import HTTPException
@@ -25,17 +26,7 @@ class UserRepository(BaseRepository[User]):
 
         return new_user
 
-    def update(self,user:UserCreateRequest,user_id):
-        existing_user=self.get_by_id(user_id)
-
-        # update_fields = existing_user.dict(exclude_unset=True)
-        # for key, value in update_fields.items():
-        #     setattr(existing_user, key, value)
-
-        existing_user.email=user.dict().get("email")
-        existing_user.first_name = user.dict().get("first_name")
-        existing_user.last_name = user.dict().get("last_name")
-
+    def update(self, user: User) -> User:
         self.db.commit()
-        self.db.refresh(existing_user)
-        return existing_user
+        self.db.refresh(user)
+        return user
