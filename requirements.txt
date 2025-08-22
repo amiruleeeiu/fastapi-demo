@@ -8,3 +8,4 @@ requests
 python-jose[cryptography]==3.4.0
 python-keycloak
 pydantic_settings
+python-multipart

@@ -2,18 +2,22 @@ import uuid
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+
+from app.controllers.deps import verify_token
+from app.core.config import settings
 from app.database import get_db
 from app.exceptions import NotFoundException
 from app.schemas.paginated_response import PaginatedResponse
 from app.schemas.user_schema import UserResponse, UserCreateRequest, UserUpdateRequest
 from app.services.user_service import UserService
+import requests
 
 router = APIRouter(prefix="/users", tags=["users"])
 
-
 @router.get("", response_model=list[UserResponse])
-def get_users(db: Session = Depends(get_db)):
+def get_users(db: Session = Depends(get_db), user=Depends(verify_token)):
     """Get all users with their contact and family info"""
+    print(f"User info {user}")
     users = UserService(db).get_all()
     return users
 

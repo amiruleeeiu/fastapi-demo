@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends, Request
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from app.controllers import post_controller
+from app.controllers import token_controller
 from app.database import Base, engine, get_db
 from app.models.user import User
 from app.controllers.user_controller import router as user_router
@@ -26,6 +27,7 @@ async def internal_exception_handler(request: Request, exc: Exception):
 # Include routers
 app.include_router(user_router)
 app.include_router(post_controller.router)
+app.include_router(token_controller.router)
 
 @app.on_event("startup")
 async def startup_event():
