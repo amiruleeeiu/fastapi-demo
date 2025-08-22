@@ -3,3 +3,5 @@ uvicorn
 SQLAlchemy
 alembic
 psycopg2
+requests
+python-jose[cryptography]==3.3.0
