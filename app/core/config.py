@@ -1,5 +1,6 @@
 import os
 
+from keycloak import KeycloakOpenID
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
@@ -24,3 +25,13 @@ class Settings(BaseSettings):
         env_file = ".env"
 
 settings = Settings()
+
+keycloak_openid = KeycloakOpenID(
+    server_url=settings.keycloak_server_url,
+    realm_name=settings.keycloak_realm,
+    client_id=settings.keycloak_client_id,
+    client_secret_key=settings.keycloak_client_secret,
+)
+
+def get_openid_config():
+    return keycloak_openid.well_known()

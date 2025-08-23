@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime
 from pydantic import BaseModel
 
@@ -12,4 +13,4 @@ class PostCreate(PostBase):
     pass
 
 class PostResponse(PostBase):
-    id: int
+    id: uuid.UUID

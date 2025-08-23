@@ -1,5 +1,5 @@
 import uuid
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel
 
 from app.schemas.contact_info_schema import ContactInfoResponse
@@ -29,4 +29,5 @@ class UserRequest(UserBase):
     pass
 
 class UserResponse(UserBase):
+    roles: Optional[List[str]]
     id: uuid.UUID
