@@ -1,13 +1,10 @@
 from fastapi import HTTPException,status
 from fastapi.params import Depends
-from fastapi.security import OAuth2AuthorizationCodeBearer, OAuth2PasswordBearer, HTTPBearer, \
-    HTTPAuthorizationCredentials
+from fastapi.security import OAuth2PasswordBearer, HTTPBearer, HTTPAuthorizationCredentials
 import requests
 from sqlalchemy.orm import Session
-
 from app.core.config import settings, keycloak_openid
 from jose import jwt, JWTError
-
 from app.database import get_db
 from app.models.user import User
 
@@ -22,7 +19,6 @@ JWKS=get_jwks()
 
 async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
     token = credentials.credentials
-    print(f"Bearer Token: {token}")
 
     try:
         # Get public key

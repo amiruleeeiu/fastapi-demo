@@ -1,12 +1,11 @@
 import uuid
-
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.controllers.deps import verify_token, require_role
+from app.core.deps import verify_token, require_role
 from app.database import get_db
 from app.exceptions import NotFoundException
 from app.schemas.paginated_response import PaginatedResponse
-from app.schemas.user_schema import UserResponse, UserCreateRequest, UserUpdateRequest
+from app.schemas.user_schema import UserResponse, UserCreateRequest
 from app.services.user_service import UserService
 
 router = APIRouter(prefix="/users", tags=["users"])

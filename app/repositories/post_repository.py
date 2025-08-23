@@ -27,10 +27,8 @@ class PostRepository(BaseRepository[Post]):
         self.db.refresh(new_post)
         return new_post
 
-    def update(self, post_id: int, updated_post: PostCreate):
-        post = self.base_service.get_by_id(post_id)  # use repository method
-        if not post:
-            return None
+    def update(self, post_id: uuid.UUID,post:Post, updated_post: PostCreate):
+
         post.title = updated_post.title
         post.content = updated_post.content
         self.db.commit()
